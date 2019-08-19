@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         valueEntryTextField.attributedPlaceholder = placeholder
         valueEntryTextField.addTarget(self, action: #selector(textFieldTextDidChange), for: .editingChanged)
         disableBtns()
+        let binDigit = BinaryDecimal(145)
+        print(binDigit.calculateBinarValueForInt())
     }
     
     @objc func textFieldTextDidChange() {
