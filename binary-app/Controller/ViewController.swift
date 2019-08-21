@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         valueEntryTextField.addTarget(self, action: #selector(textFieldTextDidChange), for: .editingChanged)
         disableBtns()
         let binDigit = BinaryDecimal(145)
-        print(binDigit.calculateBinarValueForInt())
+        print(binDigit.calculateBinaryValueForInt())
     }
     
     @objc func textFieldTextDidChange() {
@@ -51,12 +51,25 @@ class ViewController: UIViewController {
     }
     
     @IBAction func binaryBtnWasPressed(_ sender: Any) {
-        
+        if valueEntryTextField.text != "" {
+            binaryBtn.alpha = 1.0
+            decimalBtn.alpha = 0.5
+            guard let string = valueEntryTextField.text, let intFromString = Int(string) else { return }
+            let binaryDigit = BinaryDecimal.init(intFromString)
+            valueEntryTextField.text = "\(binaryDigit.calculateBinaryValueForInt())"
+        }
     }
     
     @IBAction func decimalBtnWasPressed(_ sender: Any) {
-        
+        if valueEntryTextField.text != "" {
+            binaryBtn.alpha = 0.5
+            decimalBtn.alpha = 1.0
+            
+            guard let string = valueEntryTextField.text else { return }
+            let bitsFromString = string.map{ Int(String($0))! }
+            let binaryDigit = BinaryDecimal(bitsFromString)
+            valueEntryTextField.text = "\(binaryDigit.calculateIntValueForBinary())"
+        }
     }
-    
 }
 

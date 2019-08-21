@@ -20,7 +20,7 @@ class BinaryDecimal {
         self.integer = decimal
     }
     
-    func calculateBinarValueForInt() -> String {
+    func calculateBinaryValueForInt() -> String {
         var newInt = integer!
         let rows = [128, 64, 32, 16, 8, 4, 2, 1]
         var binaryRows: [Int] = []
