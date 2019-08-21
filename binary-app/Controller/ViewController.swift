@@ -54,9 +54,26 @@ class ViewController: UIViewController {
         if valueEntryTextField.text != "" {
             binaryBtn.alpha = 1.0
             decimalBtn.alpha = 0.5
-            guard let string = valueEntryTextField.text, let intFromString = Int(string) else { return }
-            let binaryDigit = BinaryDecimal.init(intFromString)
-            valueEntryTextField.text = "\(binaryDigit.calculateBinaryValueForInt())"
+            
+            let numbers = multipleNumberPull(delimitedNumbers: valueEntryTextField.text!)
+            var binaries: String = String()
+            
+            numbers.forEach { (number) in
+                let intFromString = Int(number)
+                let binaryDigit = BinaryDecimal.init(intFromString!)
+                binaries.append(binaryDigit.calculateBinaryValueForInt())
+                binaries.append(contentsOf: " ")
+            }
+            
+            if (binaries.last! == " ") {
+                binaries.removeLast()
+            }
+            
+            valueEntryTextField.text = binaries
+        
+            //guard let string = valueEntryTextField.text, let intFromString = Int(string) else { return }
+            //let binaryDigit = BinaryDecimal.init(intFromString)
+            //valueEntryTextField.text = "\(binaryDigit.calculateBinaryValueForInt())"
         }
     }
     
@@ -66,10 +83,28 @@ class ViewController: UIViewController {
             decimalBtn.alpha = 1.0
             
             guard let string = valueEntryTextField.text else { return }
-            let bitsFromString = string.map{ Int(String($0))! }
-            let binaryDigit = BinaryDecimal(bitsFromString)
-            valueEntryTextField.text = "\(binaryDigit.calculateIntValueForBinary())"
+            
+            let numbers = multipleNumberPull(delimitedNumbers: string)
+            var decimals: String = String()
+            
+            numbers.forEach { number in
+                let bitsFromString = number.map{ Int(String($0))! }
+                let binaryDigit = BinaryDecimal(bitsFromString)
+                decimals.append(contentsOf:"\(binaryDigit.calculateIntValueForBinary())");
+                decimals.append(contentsOf: " ")
+            }
+            
+            if (decimals.last! == " ") {
+                decimals.removeLast()
+            }
+            valueEntryTextField.text = decimals
         }
+    }
+    
+    func multipleNumberPull(delimitedNumbers numbers: String) ->[Substring]
+    {
+        let multipleValues = numbers.split(separator: " ")
+        return multipleValues;
     }
 }
 
